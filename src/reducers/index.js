@@ -1,9 +1,18 @@
 const reducer = (state, action) => {
   switch (action.type) {
     case 'SET_FAVORITE':
+      let myList = []
+      Object.values(state.myList).forEach(value => {
+        myList.push(value.id)
+      }) 
+      if (!(myList.includes(action.payload.id))) {
+        return {
+          ...state,
+          myList: [...state.myList, action.payload]
+        }
+      }
       return {
         ...state,
-        myList: [...state.myList, action.payload]
       }
     case 'DELETE_FAVORITE':
       return {
