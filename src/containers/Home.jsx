@@ -1,26 +1,26 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Search from '../components/Search';
 import Categories from '../components/Categories';
 import Carousel from '../components/Carousel';
 import CarouselItem from '../components/CarouselItem';
-import useInitialState from '../hooks/useInitialState';
 
 import '../assets/styles/App.scss';
 
-const API = 'http://localhost:3000/db';
-
 const Home = () => {
-  const data  = useInitialState(API);
-
+  const { myList, trends, originals } = useSelector(state => state);
   return (
     <>
       <Search />
-
-      {data.initialState?.mylist.length > 0 && (
+      {myList.length > 0 && (
         <Categories title="Mi Lista">
           <Carousel>
-            {data.initialState.mylist.map(item => 
-              <CarouselItem key={item.id} {...item} />
+            {myList.map(item => 
+              <CarouselItem 
+                key={item.id} 
+                {...item}
+                isList={true}
+              />
             )} 
           </Carousel>
         </Categories>
@@ -28,7 +28,7 @@ const Home = () => {
 
       <Categories title="Tendencias">
         <Carousel>
-          {data.initialState?.trends.map(item => 
+          {trends.map(item => 
             <CarouselItem key={item.id} {...item} />
           )} 
         </Carousel>
@@ -36,7 +36,7 @@ const Home = () => {
 
       <Categories title="Originales de Platzi Video">
         <Carousel>
-          {data.initialState?.originals.map(item => 
+          {originals.map(item => 
             <CarouselItem key={item.id} {...item} />
           )} 
         </Carousel>
