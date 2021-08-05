@@ -11,7 +11,7 @@ import '../assets/styles/App.scss';
 
 const API = 'http://localhost:3000/db';
 
-const App = () => {
+const Home = () => {
   const data  = useInitialState(API);
 
   return (
@@ -50,4 +50,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Home;
