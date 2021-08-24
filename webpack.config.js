@@ -11,7 +11,7 @@ module.exports = {
   mode: "development",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
+    filename: "assets/app.js",
     publicPath: "/",
   },
   resolve: {
@@ -49,7 +49,7 @@ module.exports = {
         use: [
           {
             loader: "file-loader",
-            options: { name: "assets/[hash].[ext]" },
+            options: { name: "assets/[md5:hash].[ext]" },
           },
         ],
       },
@@ -60,12 +60,8 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebPackPlugin({
-      template: "./public/index.html",
-      filename: "./index.html",
-    }),
     new MiniCssExtractPlugin({
-      filename: "assets/[name].css",
+      filename: "assets/app.css",
     }),
   ],
 };
