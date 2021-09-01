@@ -6,14 +6,18 @@ import { Router } from "react-router";
 import { createBrowserHistory } from "history";
 import reducer from "./reducers";
 import App from "./routes/App";
-import initialState from "./initialState";
 
 const history = createBrowserHistory();
+const preloadedState = window.__PRELOADED_STATE__;
 const composeEnhancers =
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
-const store = createStore(reducer, initialState, composeEnhancers);
+const store = createStore(reducer, preloadedState, composeEnhancers);
 
-ReactDOM.render(
+// The preloaded state from the server is removed
+// so that it cannot be accessed from the browser
+delete window.__PRELOADED_STATE__;
+
+ReactDOM.hydrate(
   <Provider store={store}>
     <Router history={history}>
       <App />
